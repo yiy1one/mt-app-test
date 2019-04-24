@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="layout-default">
     <el-header>
       <my-header/>
     </el-header>
@@ -20,6 +20,7 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss">
+  @import "@/assets/css/index/index.scss"
 
 </style>
