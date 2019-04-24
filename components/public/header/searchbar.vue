@@ -6,22 +6,20 @@
             </el-col>
             <el-col :span="15" class="center">
                 <div class="wrapper">
-                    <el-input placeholder="搜索商家或地点"/>
+                    <el-input 
+                        v-model="search" 
+                        @focus="focus" 
+                        @blur="blur" 
+                        placeholder="搜索商家或地点"
+                        @input="input"
+                    />
                     <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
-                    <dl class="hotPlace">
+                    <dl class="hotPlace" v-if="isHotPlace">
                         <dt>热门搜索</dt>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
+                        <dd v-for="(item,idx) in hotPlace" :key="idx">{{ item }}</dd>
                     </dl>
-                    <dl calss="searchList">
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
-                        <dd>火锅</dd>
+                    <dl class="searchList" v-if="isSearchList">
+                        <dd v-for="(item,idx) in searchList" :key="idx">{{ item }}</dd>
                     </dl>
                 </div>
                 <p class="suggest">
@@ -51,7 +49,36 @@
 
 <script>
 export default {
-
+    data(){
+        return {
+            isFocus: false,
+            search: '',
+            hotPlace:["火锅", "火锅", "火锅", "火锅", "火锅", "火锅"],
+            searchList:["火锅", "火锅", "火锅", "火锅", "火锅", "火锅"]
+        }
+    },
+    computed:{
+        isHotPlace: function(){
+            return this.isFocus && !this.search
+        },
+        isSearchList: function(){
+            return this.isFocus && this.search
+        }
+    },
+    methods: {
+        focus: function(){
+            this.isFocus = true
+        },
+        blur: function(){
+            let self = this
+            setTimeout(function(){
+                self.isFocus=false
+            },200)
+        },
+        input: function(){
+            console.log('input')
+        }
+    }
 }
 </script>
 
